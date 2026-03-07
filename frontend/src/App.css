@@ -12,3 +12,7 @@ body {
 a {
   text-decoration: none;
 }
+
+.main-content {
+  flex: 1;
+}

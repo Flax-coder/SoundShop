@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
-import { getTest } from "../services/api";
 import { Link } from "react-router-dom";
+import { getProducts } from "../services/api";
+import ProductCard from "../components/ProductCard";
 import "./Home.css";
 
 function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setFeaturedProducts(data.slice(0, 3));
+      })
+      .catch((error) => console.error("Errore homepage prodotti:", error))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <div className="home-page">
       <section className="hero">
@@ -71,6 +84,29 @@ function Home() {
             </p>
           </article>
         </div>
+      </section>
+
+      <section className="featured-products-section">
+        <div className="featured-products-header">
+          <div>
+            <span className="section-badge">Featured gear</span>
+            <h2 className="featured-products-title">Top picks for musicians</h2>
+          </div>
+
+          <Link to="/products" className="featured-products-link">
+            See all products
+          </Link>
+        </div>
+
+        {loading ? (
+          <p className="featured-loading">Loading featured products...</p>
+        ) : (
+          <div className="featured-products-grid">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../services/api";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import toast from "react-hot-toast";
 import "./ProductDetail.css";
 
 function ProductDetail() {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,16 +50,24 @@ function ProductDetail() {
         </div>
 
         <div className="product-detail-content">
-          <h1 className="product-detail-title">{product.title}</h1>
-          <p className="product-detail-description">{product.description}</p>
-          <p className="product-detail-price">
-            {Number(product.price).toLocaleString("it-IT", {
-              style: "currency",
-              currency: "EUR",
-            })}
-          </p>
+            <h1 className="product-detail-title">{product.title}</h1>
+            <p className="product-detail-description">{product.description}</p>
+            <p className="product-detail-price">
+                {Number(product.price).toLocaleString("it-IT", {
+                style: "currency",
+                currency: "EUR",
+                })}
+            </p>
 
-          <button className="product-button">Add to Cart</button>
+            <button
+                onClick={() => {
+                    addToCart(product);
+                    toast.success("Product added to cart");
+                }}
+                className="product-button" 
+                >
+                Add to Cart
+            </button>
         </div>
       </div>
     </div>
