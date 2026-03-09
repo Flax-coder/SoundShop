@@ -84,3 +84,17 @@
   font-size: 0.75rem;
   font-weight: 700;
 }
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.navbar-user {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-weight: 500;
+}

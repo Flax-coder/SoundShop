@@ -80,3 +80,11 @@
 .product-button:hover {
   background-color: #2563eb;
 }
+
+.product-category {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 6px;
+}

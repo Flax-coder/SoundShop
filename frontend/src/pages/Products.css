@@ -39,3 +39,39 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
 }
+
+.category-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  border: 1px solid #dcdcdc;
+  background: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.category-btn:hover {
+  background: #f3f5f7;
+  border-color: #bfc5cc;
+}
+
+.category-btn.active {
+  background: #0d1b2a;
+  color: white;
+  border-color: #0d1b2a;
+}
+
+.category-count {
+  opacity: 0.7;
+  font-size: 0.85em;
+  margin-left: 2px;
+}

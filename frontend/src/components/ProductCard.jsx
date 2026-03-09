@@ -6,6 +6,13 @@ function ProductCard({ product }) {
     ? `http://127.0.0.1:8000/storage/${product.image}`
     : null;
 
+  const categoryIcons = {
+    Guitars: "🎸",
+    Pedals: "🎛️",
+    Amplifiers: "🔊",
+    Accessories: "🎧",
+  };
+
   return (
     <div className="product-card">
       <div className="product-image-wrapper">
@@ -22,6 +29,9 @@ function ProductCard({ product }) {
 
       <div className="product-card-body">
         <h3 className="product-title">{product.title}</h3>
+        <span className="product-category">
+          {categoryIcons[product.category?.name] ?? "🛍️"} {product.category?.name}
+        </span>
         <p className="product-description">{product.description}</p>
 
         <div className="product-card-footer">
