@@ -8,11 +8,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return response()->json(Product::latest()->get());
+        return response()->json(Product::with('category')->latest()->get());
     }
 
     public function show(Product $product)
     {
-        return response()->json($product);
+        return response()->json($product->load('category'));
     }
 }
