@@ -58,16 +58,29 @@ function Navbar() {
               </NavLink>
             )}
 
-            {!isAuthenticated ? (
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? "navbar-link active" : "navbar-link"
-                }
-              >
-                Login
-              </NavLink>
-            ) : (
+            {!isAuthenticated && (
+              <>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
+                  Login
+                </NavLink>
+
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
+                  Register
+                </NavLink>
+              </>
+            )}
+
+            {isAuthenticated && (
               <>
                 <span className="navbar-user">
                   Ciao, {user?.name}

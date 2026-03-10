@@ -1,28 +1,59 @@
-import axios from "axios";
+import api from "./api";
 
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-  withCredentials: true,
-  withXSRFToken: true,
-  headers: {
-    Accept: "application/json",
-  },
-});
+export async function loginUser(credentials) {
+  const response = await api.post("/api/login", credentials);
 
-export const getCsrfCookie = async () => {
-  return await api.get("/sanctum/csrf-cookie");
-};
+  const { token, user } = response.data;
 
-export const loginRequest = async (email, password) => {
-  return await api.post("/api/login", { email, password });
-};
+  if (token) {
+    localStorage.setItem("token", token);
+  }
 
-export const meRequest = async () => {
-  return await api.get("/api/me");
-};
+  if (user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 
-export const logoutRequest = async () => {
-  return await api.post("/api/logout");
-};
+  return response.data;
+}
 
-export default api;
+export async function getMe() {
+  const token = localStorage.getItem("token");
+
+  const response = await api.get("/api/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
+export async function logoutUser() {
+  const token = localStorage.getItem("token");
+
+  await api.post(
+    "/api/logout",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+}
+
+export function getStoredUser() {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
+}
+
+export function getStoredToken() {
+  return localStorage.getItem("token");
+}
+
+export function isAuthenticated() {
+  return !!localStorage.getItem("token");
+}

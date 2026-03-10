@@ -1,57 +1,76 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-  getCsrfCookie,
-  loginRequest,
-  meRequest,
-  logoutRequest,
+  loginUser,
+  logoutUser,
+  getMe,
+  getStoredUser,
+  getStoredToken,
 } from "../services/authService";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getStoredUser());
+  const [token, setToken] = useState(getStoredToken());
   const [loading, setLoading] = useState(true);
 
-  const fetchUser = async () => {
-    try {
-      const response = await meRequest();
-      setUser(response.data);
-    } catch (error) {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const isAuthenticated = !!token;
 
-  const login = async (email, password) => {
-    await getCsrfCookie();
-    await loginRequest(email, password);
-    await fetchUser();
+  useEffect(() => {
+    const initAuth = async () => {
+      const savedToken = getStoredToken();
+
+      if (!savedToken) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const me = await getMe();
+        setUser(me);
+      } catch (error) {
+        console.error("Errore recupero utente:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser(null);
+        setToken(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  const login = async (credentials) => {
+    const data = await loginUser(credentials);
+    setToken(data.token);
+    setUser(data.user);
+    return data;
   };
 
   const logout = async () => {
     try {
-      await logoutRequest();
+      await logoutUser();
     } catch (error) {
       console.error("Errore logout:", error);
     } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setUser(null);
+      setToken(null);
     }
   };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        token,
+        isAuthenticated,
         loading,
         login,
         logout,
-        isAuthenticated: !!user,
-        isAdmin: !!user?.is_admin,
       }}
     >
       {children}

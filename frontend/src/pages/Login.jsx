@@ -1,82 +1,94 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 
 function Login() {
-  const { login } = useAuth();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setForm({
+      ...form,
       [e.target.name]: e.target.value,
     });
+
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
     setError("");
 
     try {
-      await login(formData.email, formData.password);
+      await login(form);
       navigate("/");
     } catch (err) {
-      console.error(err);
-      setError("Email o password non validi");
+      console.error("Login error:", err);
+
+      if (err.response?.status === 401) {
+        setError("Email o password non validi");
+      } else {
+        setError("Qualcosa è andato storto. Riprova.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="login-page">
-      <div className="login-card">
-        <h1 className="login-title">Login</h1>
-        <p className="login-subtitle">
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Login</h2>
+        <p className="auth-subtitle">
           Accedi a SoundShop per gestire carrello e area riservata.
         </p>
 
-        {error && <div className="login-error">{error}</div>}
+        {error && <div className="auth-error-box">{error}</div>}
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="login-field">
-            <label htmlFor="email">Email</label>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="auth-field">
+            <label>Email</label>
             <input
-              id="email"
               type="email"
               name="email"
-              placeholder="Inserisci la tua email"
-              value={formData.email}
+              value={form.email}
               onChange={handleChange}
-              required
+              placeholder="Inserisci email"
             />
           </div>
 
-          <div className="login-field">
-            <label htmlFor="password">Password</label>
+          <div className="auth-field">
+            <label>Password</label>
             <input
-              id="password"
               type="password"
               name="password"
-              placeholder="Inserisci la tua password"
-              value={formData.password}
+              value={form.password}
               onChange={handleChange}
-              required
+              placeholder="Inserisci password"
             />
           </div>
 
-          <button type="submit" className="login-button">
-            Accedi
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Accesso..." : "Accedi"}
           </button>
         </form>
+
+        <p className="auth-switch">
+          Non hai un account? <Link to="/register">Registrati</Link>
+        </p>
       </div>
-    </section>
+    </div>
   );
 }
 
