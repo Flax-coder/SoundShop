@@ -7,6 +7,9 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AccountPage from "./pages/AccountPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import CategoriesPage from "./pages/admin/CategoriesPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
@@ -22,6 +25,9 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/categories" element={<CategoriesPage />} />
 
           <Route
             path="/cart"

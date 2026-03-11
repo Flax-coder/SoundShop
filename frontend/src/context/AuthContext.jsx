@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const isAuthenticated = !!token;
+  const isAdmin = Number(user?.is_admin) === 1;
 
   useEffect(() => {
     const initAuth = async () => {
@@ -68,6 +69,7 @@ export function AuthProvider({ children }) {
         user,
         token,
         isAuthenticated,
+        isAdmin,
         loading,
         login,
         logout,

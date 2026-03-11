@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -6,6 +7,8 @@ import "./Navbar.css";
 function Navbar() {
   const { cartCount } = useCart();
   const { user, isAuthenticated, logout, isAdmin } = useAuth();
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const accountMenuRef = useRef(null);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -16,6 +19,23 @@ function Navbar() {
       console.error("Errore durante il logout:", error);
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        accountMenuRef.current &&
+        !accountMenuRef.current.contains(event.target)
+      ) {
+        setAccountMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="site-header">
@@ -81,16 +101,56 @@ function Navbar() {
             )}
 
             {isAuthenticated && (
-              <>
-                <span className="navbar-user">
-                  Ciao, {user?.name}
-                  {isAdmin && " 👑"}
-                </span>
-
-                <button className="navbar-link logout-btn" onClick={handleLogout}>
-                  Logout
+              <div className="navbar-account-wrapper" ref={accountMenuRef}>
+                <button
+                  type="button"
+                  className="navbar-account-trigger"
+                  onClick={() => setAccountMenuOpen((prev) => !prev)}
+                >
+                  Ciao, {user?.name} {isAdmin && "👑"} <span className="dropdown-arrow">▼</span>
                 </button>
-              </>
+
+                {accountMenuOpen && (
+                  <div className="navbar-account-dropdown">
+                    <Link
+                      to="/account"
+                      className="navbar-dropdown-item"
+                      onClick={() => setAccountMenuOpen(false)}
+                    >
+                      My account
+                    </Link>
+
+                    <Link
+                      to="/account"
+                      className="navbar-dropdown-item"
+                      onClick={() => setAccountMenuOpen(false)}
+                    >
+                      Orders
+                    </Link>
+
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        className="navbar-dropdown-item"
+                        onClick={() => setAccountMenuOpen(false)}
+                      >
+                        Admin dashboard
+                      </Link>
+                    )}
+
+                    <button
+                      type="button"
+                      className="navbar-dropdown-item logout-item"
+                      onClick={() => {
+                        setAccountMenuOpen(false);
+                        handleLogout();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>

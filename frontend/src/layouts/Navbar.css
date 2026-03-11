@@ -91,10 +91,88 @@
   cursor: pointer;
   font: inherit;
   padding: 0;
+  font-weight: 700;
 }
 
 .navbar-user {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  color: #1e293b;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navbar-user:hover {
+  color: #2563eb;
+}
+
+.navbar-account-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-account-trigger {
+  background: transparent;
+  border: none;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-account-trigger:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dropdown-arrow {
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.navbar-account-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 190px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  padding: 8px;
+  z-index: 1000;
+}
+
+.navbar-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  color: #1e293b;
+  font-size: 0.95rem;
   font-weight: 500;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-dropdown-item:hover {
+  background: #f8fafc;
+  color: #2563eb;
+}
+
+.logout-item {
+  color: #b91c1c;
+}
+
+.logout-item:hover {
+  background: #fef2f2;
+  color: #991b1b;
 }

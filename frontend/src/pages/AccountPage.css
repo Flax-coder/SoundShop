@@ -1,0 +1,241 @@
+.account-page {
+  min-height: calc(100vh - 80px);
+  background: #f5f7fb;
+  padding: 48px 20px 64px;
+}
+
+.account-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.account-header {
+  margin-bottom: 32px;
+}
+
+.account-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.account-header h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.account-header p {
+  margin: 0;
+  max-width: 700px;
+  color: #475569;
+  font-size: 1.05rem;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.account-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.account-card h2 {
+  margin: 0 0 20px;
+  color: #0f172a;
+  font-size: 1.4rem;
+}
+
+.account-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.account-info-row:last-child {
+  border-bottom: none;
+}
+
+.account-info-row span {
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.account-info-row strong {
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.orders-header h2 {
+  margin: 0;
+}
+
+.orders-count {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.order-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.order-top h3 {
+  margin: 0 0 6px;
+  color: #0f172a;
+  font-size: 1.15rem;
+}
+
+.order-top p {
+  margin: 0;
+  color: #64748b;
+}
+
+.order-status {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-shipped {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-delivered {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.order-middle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #334155;
+}
+
+.order-middle p {
+  margin: 0;
+}
+
+.order-items h4 {
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.order-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-items li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #e5e7eb;
+  color: #334155;
+}
+
+.order-items li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.empty-orders,
+.no-items,
+.account-message {
+  color: #475569;
+  font-size: 1rem;
+}
+
+.account-message.error {
+  color: #b91c1c;
+}
+
+@media (max-width: 900px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .account-page {
+    padding: 32px 16px 48px;
+  }
+
+  .account-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .order-top {
+    flex-direction: column;
+  }
+
+  .orders-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
