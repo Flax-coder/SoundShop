@@ -2,14 +2,20 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8000",
-  withCredentials: true,
-  withXSRFToken: true,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
+});
+
+api.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 export async function getTest() {
@@ -30,10 +36,6 @@ export async function getProductById(id) {
 export async function getCategories() {
   const response = await api.get("/api/categories");
   return response.data;
-}
-
-export async function getCsrfCookie() {
-  return await api.get("/sanctum/csrf-cookie");
 }
 
 export default api;

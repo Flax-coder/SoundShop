@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductById } from "../services/api";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { FaArrowLeft } from "react-icons/fa";
 import toast from "react-hot-toast";
 import "./ProductDetail.css";
 
@@ -33,8 +34,9 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-page">
-        <Link to="/products" className="back-link">
-        ← Back to products
+        <Link to="/products" className="back-button">
+          <FaArrowLeft />
+          Back to products
         </Link>
       <div className="product-detail-card">
         <div className="product-detail-image-wrapper">

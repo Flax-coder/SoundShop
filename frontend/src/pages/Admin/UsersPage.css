@@ -1,0 +1,153 @@
+.users-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.users-page-header {
+  margin-bottom: 2rem;
+}
+
+.users-page-badge {
+  display: inline-block;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.users-page-header h1 {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.users-page-header p {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+}
+
+.users-page-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.users-page-message {
+  margin: 0;
+  color: #475569;
+  font-size: 1rem;
+}
+
+.users-page-error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.users-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #f8fafc;
+}
+
+.users-table th,
+.users-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.users-table th {
+  font-size: 0.95rem;
+  color: #334155;
+  font-weight: 700;
+}
+
+.users-table td {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.user-role-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.user-role-badge.admin {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.user-role-badge.user {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.users-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.users-action-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.users-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.role-btn {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.role-btn:hover:not(:disabled) {
+  background: #bfdbfe;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+.you-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #334155;
+}

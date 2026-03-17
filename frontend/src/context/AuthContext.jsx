@@ -31,8 +31,10 @@ export function AuthProvider({ children }) {
         setUser(me);
       } catch (error) {
         console.error("Errore recupero utente:", error);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+
         setUser(null);
         setToken(null);
       } finally {
@@ -45,8 +47,10 @@ export function AuthProvider({ children }) {
 
   const login = async (credentials) => {
     const data = await loginUser(credentials);
+
     setToken(data.token);
     setUser(data.user);
+
     return data;
   };
 
@@ -56,8 +60,9 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error("Errore logout:", error);
     } finally {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+
       setUser(null);
       setToken(null);
     }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { FaShoppingCart } from "react-icons/fa";
 import "./Navbar.css";
 
 function Navbar() {
@@ -64,20 +65,6 @@ function Navbar() {
               Products
             </NavLink>
 
-            {isAuthenticated && (
-              <NavLink
-                to="/cart"
-                className={({ isActive }) =>
-                  isActive ? "navbar-link active" : "navbar-link"
-                }
-              >
-                Cart
-                {cartCount > 0 && (
-                  <span className="cart-badge">{cartCount}</span>
-                )}
-              </NavLink>
-            )}
-
             {!isAuthenticated && (
               <>
                 <NavLink
@@ -107,7 +94,7 @@ function Navbar() {
                   className="navbar-account-trigger"
                   onClick={() => setAccountMenuOpen((prev) => !prev)}
                 >
-                  Ciao, {user?.name} {isAdmin && "👑"} <span className="dropdown-arrow">▼</span>
+                  Welcome back, {user?.name} {isAdmin && "👑"} <span className="dropdown-arrow">▼</span>
                 </button>
 
                 {accountMenuOpen && (
@@ -121,11 +108,19 @@ function Navbar() {
                     </Link>
 
                     <Link
-                      to="/account"
+                      to="/products/create"
                       className="navbar-dropdown-item"
                       onClick={() => setAccountMenuOpen(false)}
                     >
-                      Orders
+                      ➕ Create product
+                    </Link>
+
+                    <Link
+                      to="/my-products"
+                      className="navbar-dropdown-item"
+                      onClick={() => setAccountMenuOpen(false)}
+                    >
+                      My products
                     </Link>
 
                     {isAdmin && (
@@ -151,6 +146,20 @@ function Navbar() {
                   </div>
                 )}
               </div>
+            )}
+
+            {isAuthenticated && (
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive ? "navbar-link active" : "navbar-link"
+                }
+              >
+                <FaShoppingCart className="cart-icon" />
+                {cartCount > 0 && (
+                  <span className="cart-badge">{cartCount}</span>
+                )}
+              </NavLink>
             )}
           </div>
         </div>

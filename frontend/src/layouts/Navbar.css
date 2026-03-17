@@ -176,3 +176,8 @@
   background: #fef2f2;
   color: #991b1b;
 }
+
+.cart-icon {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}

@@ -6,54 +6,41 @@ export async function loginUser(credentials) {
   const { token, user } = response.data;
 
   if (token) {
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
   }
 
   if (user) {
-    localStorage.setItem("user", JSON.stringify(user));
+    sessionStorage.setItem("user", JSON.stringify(user));
   }
 
   return response.data;
 }
 
 export async function getMe() {
-  const token = localStorage.getItem("token");
-
-  const response = await api.get("/api/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
+  const response = await api.get("/api/me");
   return response.data;
 }
 
 export async function logoutUser() {
-  const token = localStorage.getItem("token");
+  try {
+    await api.post("/api/logout");
+  } catch (e) {
+    console.warn("Logout API failed, forcing client logout");
+  }
 
-  await api.post(
-    "/api/logout",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("user");
 }
 
 export function getStoredUser() {
-  const user = localStorage.getItem("user");
+  const user = sessionStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 }
 
 export function getStoredToken() {
-  return localStorage.getItem("token");
+  return sessionStorage.getItem("token");
 }
 
 export function isAuthenticated() {
-  return !!localStorage.getItem("token");
+  return !!sessionStorage.getItem("token");
 }
