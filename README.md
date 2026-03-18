@@ -69,10 +69,10 @@ SoundShop/
 
 (Add your screenshots inside a `/screenshots` folder)
 
-![Homepage](./screenshots/home.png)
-![Products](./screenshots/products.png)
-![Create Product](./screenshots/create.png)
-![Admin](./screenshots/admin.png)
+![Homepage](./screenshots/home-ss.png)
+![Products](./screenshots/products-ss.png)
+![Create Product](./screenshots/create-ss.png)
+![Admin](./screenshots/admin-ss.png)
 
 ---
 
